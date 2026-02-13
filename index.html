@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Quieres ser mi San Valentín? 💖</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffd6e8, #cde7ff);
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    color: #5a4e7c;
+    height: 100vh;
+}
+
+.container {
+    margin-top: 6%;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 40px;
+    animation: latido 1.5s infinite;
+}
+
+p {
+    font-size: 20px;
+}
+
+.foto {
+    width: 280px;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    transition: 0.4s;
+}
+
+.foto:hover {
+    transform: scale(1.05);
+}
+
+.botones {
+    margin-top: 30px;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+.si {
+    background-color: #ffb6d9;
+    color: white;
+}
+
+.si:hover {
+    background-color: #ff8ec5;
+    transform: scale(1.1);
+}
+
+.no {
+    background-color: #a5d8ff;
+    color: white;
+    position: relative;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 420px;
+    text-align: center;
+    color: #5a4e7c;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    animation: scaleUp 0.4s ease;
+}
+
+.vermas {
+    background-color: #a5d8ff;
+    color: white;
+    margin-top: 15px;
+}
+
+.vermas:hover {
+    background-color: #7cc4ff;
+}
+
+.cerrar {
+    margin-top: 15px;
+    background-color: #ffb6d9;
+    color: white;
+}
+
+@keyframes latido {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.8); }
+    to { transform: scale(1); }
+}
+
+.heart {
+    position: absolute;
+    color: #ff9ecb;
+    animation: flotar 6s linear infinite;
+    font-size: 20px;
+    opacity: 0.8;
+}
+
+@keyframes flotar {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>💖 ¿Quieres ser mi San Valentín? 💖</h1>
+    <p>Desde aquel día en la universidad supe que eras especial 💕</p>
+
+    <img src="1.jpeg" alt="Nosotros" class="foto">
+
+    <div class="botones">
+        <button class="si" onclick="abrirModal()">💘 Sí quiero 💘</button>
+        <button class="no" id="noBtn">🙈 No</button>
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <h2>💖 Dijiste que sí 💖</h2>
+        <p id="mensajeRomantico"></p>
+
+        <button id="btnVerMas" class="vermas" style="display:none;" onclick="mostrarCita()">
+            ✨ Ver más
+        </button>
+
+        <p id="infoCita" style="margin-top:15px; font-weight:bold;"></p>
+
+        <button class="cerrar" onclick="cerrarModal()">Cerrar 💗</button>
+    </div>
+</div>
+
+<script>
+function abrirModal(){
+    document.getElementById("modal").style.display = "flex";
+    escribirMensaje();
+    explosionCorazones();
+}
+
+function cerrarModal(){
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("infoCita").innerHTML = "";
+    document.getElementById("btnVerMas").style.display = "none";
+}
+
+function escribirMensaje() {
+    const texto = "Desde que te conocí en la universidad supe que eras el amor de mi vida. 💕 No fue casualidad, fue destino. Gracias por existir y por elegirme.";
+    let i = 0;
+    const velocidad = 40;
+    const elemento = document.getElementById("mensajeRomantico");
+    elemento.innerHTML = "";
+
+    function escribir() {
+        if (i < texto.length) {
+            elemento.innerHTML += texto.charAt(i);
+            i++;
+            setTimeout(escribir, velocidad);
+        } else {
+            document.getElementById("btnVerMas").style.display = "inline-block";
+        }
+    }
+
+    escribir();
+}
+
+function mostrarCita() {
+    const textoCita = "😌 Como aceptaste… ahora te toca elegir el lugar. La cita será el domingo 15 de febrero de 2026 💕 Prepárate porque será una noche inolvidable ✨";
+    document.getElementById("infoCita").innerHTML = textoCita;
+}
+
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", function() {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+function crearCorazon(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 25 + 15 + "px";
+    heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
+
+function explosionCorazones(){
+    for(let i = 0; i < 40; i++){
+        setTimeout(crearCorazon, i * 80);
+    }
+}
+
+setInterval(crearCorazon, 400);
+</script>
+
+</body>
+</html>
